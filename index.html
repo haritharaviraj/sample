@@ -1,0 +1,161 @@
+
+<html>
+	<head>
+		<title>SignUp </title>
+		<link rel="stylesheet" type="text/css" href="css/signup.css"> 
+		<script>
+			function checkn()
+			{
+				if(f1.firstname.value.length==0)
+				{
+					alert("First Name should not be empty!");
+					f1.firstname.focus();
+					return false;
+
+				}
+				else{
+					f1.firstname.focus();
+				}
+				if (!/^[a-zA-Z]*$/g.test(document.f1.firstname.value)) 
+				{
+					alert("Invalid characters, Enter only Alphabets for Name");
+					f1.firstname.focus();
+					return false;
+				}
+				else{
+					f1.firstname.focus();
+				}
+			}
+			function check1()
+			{
+				if(f1.lastname.value.length==0)
+				{
+					alert("Last Name should not be empty!");
+					f1.lastname.focus();
+					return false;
+
+				}
+				else{
+					f1.lastname.focus();
+				}
+				if (!/^[a-zA-Z]*$/g.test(document.f1.lastname.value)) 
+				{
+				alert("Invalid characters, Enter only Alphabets for Name");
+				f1.lastname.focus();
+				return false;
+				}
+				else{
+					f1.lastname.focus();
+				}
+			}			
+			function check2(){
+				if(f1.email.value.length==0)
+				{
+					alert("Enter the valid e-mail id!");
+					
+				}
+			}
+			function check3(){
+				if(f1.username.value.length==0)
+				{
+					alert("Username should not be empty!");
+					
+				}
+			}
+			function check4(){
+				var password=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z0-9])(?!.*\s).{7,}$/;
+				y=f1.password.value;
+				if(y.match(password))
+				{
+					return true;
+				}
+				else
+				{
+					alert("Must contain atleast one number and one uppercase and lowercase, and atleast 7 or more characters");
+					f1.password.focus();
+					return false;
+				}
+
+			}
+			function sub(){
+				if(f1.emailid.value.length==0 || f1.firstname.value.length==0 || f1.password.value.length==0 || f1.username.value.length==0 || f1.lastname.value.length==0)
+				{
+					alert("Please fill the empty field");
+					
+				}
+				else{
+						alert("Thanks for entering the details.");
+					
+				}
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<header>
+			<div class="main">
+				<ul>
+					<li><a href="home.html">Home</a></li>
+					<li class="active"><a href="signup.html">SignUp</a></li>
+					<li><a href="contactus.html">Contact</a></li>
+					<li><a href="aboutus.html">AboutUs</a></li>
+				</ul>
+			</div>
+			<div id="nav">
+			<ul>
+				<br>
+				<br>
+				<br>
+				<br>
+				<li><a href="men.html">MEN</a></li><br>
+				<li><a href="women.html">WOMEN</a></li><br>
+				<li><a href="kids.html">KIDS</a></li><br>
+			</ul>
+		</div>
+		<form name="f1" method="post">
+			<br>
+			<label for="firstname">First Name</label>
+			<input type="text" name="firstname" required onchange="checkn()"><br>
+			<label for="lastname">Last Name</label>
+			<input type="text" name="lastname"  required onchange="check1()"><br>
+			<label for="email">Email</label>
+			<input type="email" name="email" required onchange="check2()"><br>
+			<label for="username">Username</label>
+			<input type="text" name="username" required onchange="check3()"><br>
+			<label for="password">Password</label>
+			<input type="password" name="password"required onchange="check4()"><br> 
+			<input type="submit" name="submit"  value="Register" onsubmit="sub()"><br>
+			<p>If you are registered member please<a href="login.php">Log In Here</a></p>
+		 </form>
+		 
+
+		<?php
+			if(isset($_POST["submit"]))
+			{
+				$fn = $_POST["firstname"];
+				$ln = $_POST["lastname"];
+				$email = $_POST["email"]; 
+				$un = $_POST["username"];
+				$pwd = $_POST["password"];
+				
+				$conn=mysqli_connect("localhost","root","","project");
+				
+				$sql="insert into users(firstname,lastname,email,username,password) values('$fn','$ln','$email','$un','$pwd')";
+				$res=mysqli_query($conn,$sql);
+				$res=mysqli_affected_rows($conn);
+				if($res>0)
+					echo "<script>alert('Successfully registered!')</script>";
+				
+			}
+			
+			
+		?>
+		</header>
+		
+		<div id="footer" align="center">
+				<p>@2019 Ethos Watch Boutiques. All Rights Reserved.</p>
+			</div>
+		
+	</body> 
+</html>
